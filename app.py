@@ -11,9 +11,8 @@ app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")  # use an env va
 app.config['LANGUAGES'] = ['en', 'no']
 babel = Babel(app)
 
-@babel.localeselector
+@babel.locale_selector
 def get_locale():
-    # check session first, fallback to browser
     return session.get('lang', request.accept_languages.best_match(app.config['LANGUAGES']))
 
 # Route to change language
@@ -76,3 +75,4 @@ def generator():
 @app.route("/strength")
 def strength():
     return render_template("strength.html")
+
