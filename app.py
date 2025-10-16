@@ -1,35 +1,36 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_babel import Babel, _
+
 import requests
+import os
 
 app = Flask(__name__)
-app.secret_key = "super-secret-key"  # necesario para sesiones
+app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")  # use an env var in production
 
-# Idiomas soportados
+# Flask-Babel configuration
 app.config['LANGUAGES'] = ['en', 'no']
+babel = Babel(app)
 
-# Inicializar Babel con locale selector
+@babel.localeselector
 def get_locale():
-    if 'lang' in session:
-        return session['lang']
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    # check session first, fallback to browser
+    return session.get('lang', request.accept_languages.best_match(app.config['LANGUAGES']))
 
-babel = Babel(app, locale_selector=get_locale)
+# Route to change language
+@app.route('/change_language/<lang>')
+def change_language(lang):
+    if lang in app.config['LANGUAGES']:
+        session['lang'] = lang
+    return redirect(request.referrer or url_for('dashboard'))
 
+# API for email breaches
 API_URL = "https://api.xposedornot.com/v1/check-email/{}"
 
 def get_logo_url(name):
     domain_guess = name.lower().replace(" ", "") + ".com"
     return f"https://logo.clearbit.com/{domain_guess}"
 
-# Ruta para cambiar idioma
-@app.route("/change_language/<lang>")
-def change_language(lang):
-    if lang in app.config['LANGUAGES']:
-        session['lang'] = lang
-    return redirect(request.referrer or url_for('dashboard'))
-
-# Main dashboard with clickable boxes
+# Dashboard
 @app.route("/")
 def dashboard():
     boxes = [
@@ -37,9 +38,9 @@ def dashboard():
         {"title": _("Password Generator"), "icon": "./static/Llave 1.png", "link": "/generator"},
         {"title": _("Strength Check"), "icon": "./static/Candado 1.png", "link": "/strength"}
     ]
-    return render_template("dashboard.html", boxes=boxes, locale=get_locale())
+    return render_template("dashboard.html", boxes=boxes)
 
-# Email Breach Checker page
+# Email Breach Checker
 @app.route("/checker", methods=["GET", "POST"])
 def checker():
     breaches = None
@@ -64,17 +65,14 @@ def checker():
                     breaches = [{"error": f"Error {response.status_code}"}]
             except Exception as e:
                 breaches = [{"error": str(e)}]
-    return render_template("checker.html", breaches=breaches, locale=get_locale())
+    return render_template("checker.html", breaches=breaches)
 
-# generator placeholder
+# Password Generator
 @app.route("/generator")
 def generator():
-    return render_template("generator.html", locale=get_locale())
+    return render_template("generator.html")
 
-# strength page
+# Strength Check
 @app.route("/strength")
 def strength():
-    return render_template("strength.html", locale=get_locale())
-
-if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=8000)
+    return render_template("strength.html")
