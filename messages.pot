@@ -1,0 +1,72 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-10-16 13:14+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app.py:36 templates/checker.html:4
+msgid "Email Breach Checker"
+msgstr ""
+
+#: app.py:37 templates/base.html:32 templates/generator.html:2
+#: templates/generator.html:4
+msgid "Password Generator"
+msgstr ""
+
+#: app.py:38 templates/base.html:33
+msgid "Strength Check"
+msgstr ""
+
+#: templates/base.html:5 templates/base.html:17 templates/base.html:24
+msgid "KEYPER"
+msgstr ""
+
+#: templates/base.html:30 templates/dashboard.html:2
+msgid "Dashboard"
+msgstr ""
+
+#: templates/base.html:31 templates/checker.html:2
+msgid "Email Checker"
+msgstr ""
+
+#: templates/checker.html:7
+msgid "Enter your email"
+msgstr ""
+
+#: templates/checker.html:8
+msgid "Check"
+msgstr ""
+
+#: templates/checker.html:14
+msgid "No breaches found."
+msgstr ""
+
+#: templates/dashboard.html:5
+msgid "Welcome to KEYPER"
+msgstr ""
+
+#: templates/generator.html:5
+msgid "Generate your own secure password."
+msgstr ""
+
+#: templates/strength.html:2 templates/strength.html:4
+msgid "Strength Checker"
+msgstr ""
+
+#: templates/strength.html:5
+msgid "Check if your password is strong enough."
+msgstr ""
+
