@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_babel import Babel, _
-
 import requests
 import os
 
@@ -11,7 +10,8 @@ app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")  # use an env va
 app.config['LANGUAGES'] = ['en', 'no']
 babel = Babel(app)
 
-@babel.locale_selector
+# ✅ For Flask-Babel 3.x (Render uses this)
+@babel.localeselector
 def get_locale():
     return session.get('lang', request.accept_languages.best_match(app.config['LANGUAGES']))
 
@@ -75,4 +75,3 @@ def generator():
 @app.route("/strength")
 def strength():
     return render_template("strength.html")
-
