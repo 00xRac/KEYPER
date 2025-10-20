@@ -1,19 +1,17 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_babel import Babel, _
+
 import requests
 import os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")  # use an env var in production
+app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")
 
 # Flask-Babel configuration
 app.config['LANGUAGES'] = ['en', 'no']
-babel = Babel(app)
 
-# ✅ For Flask-Babel 3.x (Render uses this)
-@babel.localeselector
-def get_locale():
-    return session.get('lang', request.accept_languages.best_match(app.config['LANGUAGES']))
+# ✅ Use `locale_selector` when initializing Babel (Flask-Babel ≥3.0)
+babel = Babel(app, locale_selector=lambda: session.get('lang', request.accept_languages.best_match(app.config['LANGUAGES'])))
 
 # Route to change language
 @app.route('/change_language/<lang>')
