@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}{{ _('KEYPER') }}{% endblock %}</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body { margin:0; font-family:"Courier New", monospace; background:#0d1317; color:#89d2dc; }
+
+/* Splash */
+#splash { position:fixed; top:0; left:0; width:100%; height:100%; background:#0d1317; z-index:9999; overflow:hidden; }
+#matrix-canvas { position:absolute; top:0; left:0; width:100%; height:100%; }
+#splash-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#232ed1; font-size:5rem; font-weight:bold; text-shadow:0 0 10px #232ed1,0 0 20px #6564db; transition:all 1s ease-in-out;}
+#splash-text.move-to-navbar { top:15px; left:20px; transform:none; font-size:1.5rem; }
+
+/* Dashboard container */
+.dashboard-container { display:none; padding-top:80px; }
+
+/* Navbar */
+.navbar { background: linear-gradient(90deg,#232ed1,#6564db); border-bottom:2px solid #89d2dc; box-shadow:0 0 20px #6564db; }
+.navbar-brand { color:#89d2dc !important; font-weight:bold; text-shadow:0 0 10px #6564db; }
+.nav-link { color:#89d2dc !important; font-family:"Courier New"; text-shadow:0 0 5px #6564db; }
+.nav-link:hover { color:#232ed1 !important; text-shadow:0 0 20px #232ed1; }
+
+/* Boxes/cards */
+.hover-card { background:#101d42; border:2px solid #232ed1; color:#89d2dc; font-family:"Courier New"; transition:all 0.3s ease; }
+.hover-card:hover { transform:translateY(-5px); border-color:#6564db; box-shadow:0 0 15px #232ed1,0 0 25px #6564db; }
+.card-title { color:#89d2dc; text-shadow:0 0 5px #6564db; }
+
+/* Forms/buttons */
+input.form-control { background:#101d42; border:2px solid #232ed1; color:#89d2dc; }
+input.form-control:focus { border-color:#6564db; box-shadow:0 0 10px #232ed1; }
+button.btn-primary { background:linear-gradient(#232ed1,#6564db); border:2px solid #232ed1; color:#89d2dc; font-family:"Courier New"; text-shadow:0 0 5px #6564db; }
+button.btn-primary:hover { border-color:#6564db; color:#6564db; text-shadow:0 0 10px #6564db; background:linear-gradient(#6564db,#232ed1); }
+
+/* Breach boxes/cards */
+.breach-card {
+    background: #232ed1;
+    border: 2px solid #6564db;
+    color: #89d2dc;
+    font-family: "Courier New", monospace;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #101d42, 0 0 20px #6564db;
+}
+.breach-card:hover {
+    transform: translateY(-5px);
+    border-color: #89d2dc;
+    box-shadow: 0 0 15px #232ed1, 0 0 25px #6564db;
+}
+.breach-card img {
+    border-radius: 8px;
+    border: 1px solid #89d2dc;
+}
+.card-title {
+    color: #89d2dc;
+    text-shadow: 0 0 5px #6564db;
+}
+</style>
+</head>
+<body>
+
+<!-- Splash -->
+<div id="splash">
+    <canvas id="matrix-canvas"></canvas>
+    <div id="splash-text">{{ _('KEYPER') }}</div>
+</div>
+
+<!-- Dashboard container -->
+<div class="dashboard-container">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">{{ _('KEYPER') }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">{{ _('Dashboard') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/checker">{{ _('Email Checker') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/generator">{{ _('Password Generator') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/strength">{{ _('Strength Check') }}</a></li>
+
+                    <!-- Language dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            🌐
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('change_language', lang='en') }}">
+                                    <img src="https://flagcdn.com/16x12/gb.png" alt="English" class="me-1"> English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('change_language', lang='no') }}">
+                                    <img src="https://flagcdn.com/16x12/no.png" alt="Norsk" class="me-1"> Norsk
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const splash = document.getElementById('splash');
+const splashText = document.getElementById('splash-text');
+const dashboard = document.querySelector('.dashboard-container');
+const canvas = document.getElementById("matrix-canvas");
+const ctx = canvas.getContext("2d");
+
+function runSplash() {
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
+    const fontSize = 16;
+    const columns = Math.floor(width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0,0,0,0.05)";
+        ctx.fillRect(0,0,width,height);
+        ctx.fillStyle = "#0a7f8c";
+        ctx.font = fontSize + "px monospace";
+        for(let i=0;i<drops.length;i++){
+            const text = letters.charAt(Math.floor(Math.random()*letters.length));
+            ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+            if(drops[i]*fontSize>height && Math.random()>0.975) drops[i]=0;
+            drops[i]++;
+        }
+    }
+
+    const matrixInterval = setInterval(drawMatrix,50);
+    setTimeout(()=>{ splashText.classList.add('move-to-navbar'); },50);
+    setTimeout(()=>{
+        splash.style.display='none';
+        dashboard.style.display='block';
+        clearInterval(matrixInterval);
+        localStorage.setItem('splashShown','true');
+    },4500);
+}
+
+if(localStorage.getItem('splashShown') === 'true'){
+    splash.style.display='none';
+    dashboard.style.display='block';
+} else {
+    runSplash();
+}
+</script>
+</body>
+</html>
