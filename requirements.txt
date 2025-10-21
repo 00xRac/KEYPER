@@ -2,7 +2,7 @@ Flask
 Flask-Babel
 requests
 gunicorn
-jsonify
 random
 strings
+re
 
