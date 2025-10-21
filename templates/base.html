@@ -23,15 +23,42 @@ body { margin:0; font-family:"Courier New", monospace; background:#0d1317; color
 .nav-link:hover { color:#232ed1 !important; text-shadow:0 0 20px #232ed1; }
 
 /* Boxes/cards */
-.hover-card { background:#101d42; border:2px solid #232ed1; color:#89d2dc; font-family:"Courier New"; transition:all 0.3s ease; }
-.hover-card:hover { transform:translateY(-5px); border-color:#6564db; box-shadow:0 0 15px #232ed1,0 0 25px #6564db; }
-.card-title { color:#89d2dc; text-shadow:0 0 5px #6564db; }
+.hover-card {
+    background: #101d42;
+    border: 2px solid #232ed1;
+    color: #89d2dc;
+    font-family: "Courier New";
+    transition: all 0.3s ease;
+}
+.hover-card:hover {
+    transform: translateY(-5px);
+    border-color: #6564db;
+    box-shadow: 0 0 15px #232ed1, 0 0 25px #6564db;
+}
 
 /* Forms/buttons */
-input.form-control { background:#101d42; border:2px solid #232ed1; color:#89d2dc; }
-input.form-control:focus { border-color:#6564db; box-shadow:0 0 10px #232ed1; }
-button.btn-primary { background:linear-gradient(#232ed1,#6564db); border:2px solid #232ed1; color:#89d2dc; font-family:"Courier New"; text-shadow:0 0 5px #6564db; }
-button.btn-primary:hover { border-color:#6564db; color:#6564db; text-shadow:0 0 10px #6564db; background:linear-gradient(#6564db,#232ed1); }
+input.form-control {
+    background: #101d42;
+    border: 2px solid #232ed1;
+    color: #89d2dc;
+}
+input.form-control:focus {
+    border-color: #6564db;
+    box-shadow: 0 0 10px #232ed1;
+}
+button.btn-primary {
+    background: linear-gradient(#232ed1, #6564db);
+    border: 2px solid #232ed1;
+    color: #89d2dc;
+    font-family: "Courier New";
+    text-shadow: 0 0 5px #6564db;
+}
+button.btn-primary:hover {
+    border-color: #6564db;
+    color: #6564db;
+    text-shadow: 0 0 10px #6564db;
+    background: linear-gradient(#6564db, #232ed1);
+}
 
 /* Breach boxes/cards */
 .breach-card {
@@ -40,21 +67,32 @@ button.btn-primary:hover { border-color:#6564db; color:#6564db; text-shadow:0 0 
     color: #89d2dc;
     font-family: "Courier New", monospace;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px #101d42, 0 0 20px #6564db;
+    box-shadow: 0 0 8px #101d42, 0 0 15px #6564db;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    border-radius: 8px;
 }
 .breach-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     border-color: #89d2dc;
-    box-shadow: 0 0 15px #232ed1, 0 0 25px #6564db;
+    box-shadow: 0 0 12px #232ed1, 0 0 20px #6564db;
 }
 .breach-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 5px;
     border-radius: 8px;
     border: 1px solid #89d2dc;
 }
-.card-title {
+.breach-card .card-title {
     color: #89d2dc;
     text-shadow: 0 0 5px #6564db;
+    font-size: 0.8rem;
+    word-wrap: break-word;
 }
+
 </style>
 </head>
 <body>

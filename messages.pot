@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-10-16 13:14+0200\n"
+"POT-Creation-Date: 2025-10-21 10:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:36 templates/checker.html:4
+#: app.py:39 templates/checker.html:4
 msgid "Email Breach Checker"
 msgstr ""
 
-#: app.py:37 templates/base.html:32 templates/generator.html:2
-#: templates/generator.html:4
+#: app.py:40 templates/base.html:80 templates/generator.html:5
 msgid "Password Generator"
 msgstr ""
 
-#: app.py:38 templates/base.html:33
+#: app.py:41 templates/base.html:81
 msgid "Strength Check"
 msgstr ""
 
-#: templates/base.html:5 templates/base.html:17 templates/base.html:24
+#: app.py:67
+#, python-format
+msgid "Error %(code)s"
+msgstr ""
+
+#: app.py:97
+msgid "Please select at least one character type."
+msgstr ""
+
+#: app.py:100
+msgid "Password length must be between 4 and 128."
+msgstr ""
+
+#: app.py:116
+msgid "Password cannot be empty."
+msgstr ""
+
+#: app.py:124
+msgid "Use at least 8 characters."
+msgstr ""
+
+#: app.py:129
+msgid "Include at least one uppercase letter."
+msgstr ""
+
+#: app.py:134
+msgid "Include at least one lowercase letter."
+msgstr ""
+
+#: app.py:139
+msgid "Include at least one number."
+msgstr ""
+
+#: app.py:144
+msgid "Include at least one symbol."
+msgstr ""
+
+#: app.py:147 app.py:153
+msgid "Very Weak"
+msgstr ""
+
+#: app.py:148
+msgid "Weak"
+msgstr ""
+
+#: app.py:149
+msgid "Medium"
+msgstr ""
+
+#: app.py:150
+msgid "Strong"
+msgstr ""
+
+#: app.py:151
+msgid "Very Strong"
+msgstr ""
+
+#: templates/base.html:5 templates/base.html:65 templates/base.html:72
 msgid "KEYPER"
 msgstr ""
 
-#: templates/base.html:30 templates/dashboard.html:2
+#: templates/base.html:78 templates/dashboard.html:2
 msgid "Dashboard"
 msgstr ""
 
-#: templates/base.html:31 templates/checker.html:2
+#: templates/base.html:79 templates/checker.html:2
 msgid "Email Checker"
 msgstr ""
 
@@ -58,15 +114,47 @@ msgstr ""
 msgid "Welcome to KEYPER"
 msgstr ""
 
-#: templates/generator.html:5
-msgid "Generate your own secure password."
+#: templates/generator.html:8
+msgid "Password Length:"
 msgstr ""
 
-#: templates/strength.html:2 templates/strength.html:4
-msgid "Strength Checker"
+#: templates/generator.html:14
+msgid "Include Uppercase"
+msgstr ""
+
+#: templates/generator.html:18
+msgid "Include Lowercase"
+msgstr ""
+
+#: templates/generator.html:22
+msgid "Include Digits"
+msgstr ""
+
+#: templates/generator.html:26
+msgid "Include Symbols"
+msgstr ""
+
+#: templates/generator.html:29
+msgid "Generate Password"
+msgstr ""
+
+#: templates/generator.html:32
+msgid "Generated Password:"
 msgstr ""
 
 #: templates/strength.html:5
-msgid "Check if your password is strong enough."
+msgid "Password Strength Checker"
+msgstr ""
+
+#: templates/strength.html:8
+msgid "Enter Password:"
+msgstr ""
+
+#: templates/strength.html:12
+msgid "Check Strength"
+msgstr ""
+
+#: templates/strength.html:15
+msgid "Strength:"
 msgstr ""
 

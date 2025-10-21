@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-10-16 13:14+0200\n"
-"PO-Revision-Date: 2025-10-16 13:14+0200\n"
+"POT-Creation-Date: 2025-10-21 10:22+0200\n"
+"PO-Revision-Date: 2025-10-21 10:22+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: no\n"
 "Language-Team: no <LL@li.org>\n"
@@ -18,34 +18,90 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:36 templates/checker.html:4
+#: app.py:39 templates/checker.html:4
 msgid "Email Breach Checker"
 msgstr "E-postbrudd Sjekker"
 
-#: app.py:37 templates/base.html:32 templates/generator.html:2
-#: templates/generator.html:4
+#: app.py:40 templates/base.html:80 templates/generator.html:5
 msgid "Password Generator"
 msgstr "Passordgenerator"
 
-#: app.py:38 templates/base.html:33
+#: app.py:41 templates/base.html:81
 msgid "Strength Check"
 msgstr "Styrkesjekk"
 
-#: templates/base.html:5 templates/base.html:17 templates/base.html:24
+#: app.py:67
+#, python-format
+msgid "Error %(code)s"
+msgstr "Feil %(code)s"
+
+#: app.py:97
+msgid "Please select at least one character type."
+msgstr "Velg minst én tegnkategori."
+
+#: app.py:100
+msgid "Password length must be between 4 and 128."
+msgstr "Passordlengden må være mellom 4 og 128."
+
+#: app.py:116
+msgid "Password cannot be empty."
+msgstr "Passord kan ikke være tomt."
+
+#: app.py:124
+msgid "Use at least 8 characters."
+msgstr "Bruk minst 8 tegn."
+
+#: app.py:129
+msgid "Include at least one uppercase letter."
+msgstr "Inkluder minst én stor bokstav."
+
+#: app.py:134
+msgid "Include at least one lowercase letter."
+msgstr "Inkluder minst én liten bokstav."
+
+#: app.py:139
+msgid "Include at least one number."
+msgstr "Inkluder minst ett tall."
+
+#: app.py:144
+msgid "Include at least one symbol."
+msgstr "Inkluder minst ett symboltegn."
+
+#: app.py:147
+msgid "Very Weak"
+msgstr "Veldig svak"
+
+#: app.py:148
+msgid "Weak"
+msgstr "Svak"
+
+#: app.py:149
+msgid "Medium"
+msgstr "Middels"
+
+#: app.py:150
+msgid "Strong"
+msgstr "Sterk"
+
+#: app.py:151
+msgid "Very Strong"
+msgstr "Veldig sterk"
+
+#: templates/base.html:5 templates/base.html:65 templates/base.html:72
 msgid "KEYPER"
 msgstr "KEYPER"
 
-#: templates/base.html:30 templates/dashboard.html:2
+#: templates/base.html:78 templates/dashboard.html:2
 msgid "Dashboard"
-msgstr "Dashbord"
+msgstr "Oversikt"
 
-#: templates/base.html:31 templates/checker.html:2
+#: templates/base.html:79 templates/checker.html:2
 msgid "Email Checker"
-msgstr "E-postsjekker"
+msgstr "E-postsjekk"
 
 #: templates/checker.html:7
 msgid "Enter your email"
-msgstr "Skriv inn e-posten din"
+msgstr "Skriv inn e-postadressen din"
 
 #: templates/checker.html:8
 msgid "Check"
@@ -59,14 +115,46 @@ msgstr "Ingen brudd funnet."
 msgid "Welcome to KEYPER"
 msgstr "Velkommen til KEYPER"
 
-#: templates/generator.html:5
-msgid "Generate your own secure password."
-msgstr "Generer ditt eget sikre passord."
+#: templates/generator.html:8
+msgid "Password Length:"
+msgstr "Passordlengde:"
 
-#: templates/strength.html:2 templates/strength.html:4
-msgid "Strength Checker"
-msgstr "Styrkesjekk"
+#: templates/generator.html:14
+msgid "Include Uppercase"
+msgstr "Inkluder store bokstaver"
+
+#: templates/generator.html:18
+msgid "Include Lowercase"
+msgstr "Inkluder små bokstaver"
+
+#: templates/generator.html:22
+msgid "Include Digits"
+msgstr "Inkluder tall"
+
+#: templates/generator.html:26
+msgid "Include Symbols"
+msgstr "Inkluder symboler"
+
+#: templates/generator.html:29
+msgid "Generate Password"
+msgstr "Generer passord"
+
+#: templates/generator.html:32
+msgid "Generated Password:"
+msgstr "Generert passord:"
 
 #: templates/strength.html:5
-msgid "Check if your password is strong enough."
-msgstr "Sjekk om passordet ditt er sterkt nok."
+msgid "Password Strength Checker"
+msgstr "Passordstyrke Sjekker"
+
+#: templates/strength.html:8
+msgid "Enter Password:"
+msgstr "Skriv inn passord:"
+
+#: templates/strength.html:12
+msgid "Check Strength"
+msgstr "Sjekk styrke"
+
+#: templates/strength.html:15
+msgid "Strength:"
+msgstr "Styrke:"

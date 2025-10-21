@@ -1,6 +1,50 @@
 {% extends "base.html" %}
-{% block title %}{{ _('Strength Checker') }}{% endblock %}
 {% block content %}
-<h1 class="text-center mb-4">{{ _('Strength Checker') }}</h1>
-<p class="text-center">{{ _('Check if your password is strong enough.') }}</p>
+<div class="container text-center mt-5">
+  <div class="hover-card p-4">
+    <h2 class="card-title mb-3">{{ _('Password Strength Checker') }}</h2>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">{{ _('Enter Password:') }}</label>
+      <input type="password" id="password" class="form-control text-center">
+    </div>
+
+    <button id="checkBtn" class="btn btn-primary mt-3">{{ _('Check Strength') }}</button>
+
+    <div class="mt-4">
+      <h4>{{ _('Strength:') }}</h4>
+      <input type="text" id="strengthResult" class="form-control text-center" readonly>
+      <ul id="feedbackList" class="text-start mt-2"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("checkBtn").addEventListener("click", async () => {
+  const password = document.getElementById("password").value;
+
+  const response = await fetch("/check_strength", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password })
+  });
+
+  const strengthInput = document.getElementById("strengthResult");
+  const feedbackList = document.getElementById("feedbackList");
+  feedbackList.innerHTML = "";
+
+  const result = await response.json();
+
+  if (response.ok) {
+    strengthInput.value = result.strength + " (" + result.score + "/5)";
+    result.feedback.forEach(f => {
+      const li = document.createElement("li");
+      li.textContent = f;
+      feedbackList.appendChild(li);
+    });
+  } else {
+    strengthInput.value = result.error || "Error";
+  }
+});
+</script>
 {% endblock %}
