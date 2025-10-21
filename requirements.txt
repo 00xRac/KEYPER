@@ -2,7 +2,5 @@ Flask
 Flask-Babel
 requests
 gunicorn
-random
-strings
 re
 
