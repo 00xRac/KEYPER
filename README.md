@@ -36,13 +36,4 @@
 - **Bootstrap 5** – responsive design and UI components
 - **Custom CSS** – futuristic, card-based interface
 
----
-
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/keyper.git
-cd keyper
 
