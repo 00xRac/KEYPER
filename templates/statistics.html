@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Statistics') }}{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="position: relative; z-index: 100;"> 
+
+  <!-- Sección: Passwords & Emails Breached -->
+  <div class="section">
+    <h2>{{ _('Passwords & Emails Breached (2015–2025)') }}</h2>
+    <p>{{ _('Estimated global number of passwords and emails compromised in the last decade.') }}</p>
+    <canvas id="barChart" style="position: relative; z-index: 101;"></canvas>
+  </div>
+
+  <!-- Sección: Most Common Breach Types -->
+  <div class="section">
+    <h2>{{ _('Most Common Breach Types') }}</h2>
+    <p>{{ _('Distribution of breaches by type or sector.') }}</p>
+    <canvas id="pieChart" style="position: relative; z-index: 101; max-width: 50%; margin: 0 auto; display: block;"></canvas>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Chart 1: Passwords & Emails
+  const ctxBar = document.getElementById('barChart').getContext('2d');
+  new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: {{ years|tojson }},
+      datasets: [
+        {
+          label: '{{ _("Passwords Breached (millions)") }}',
+          data: {{ passwords|tojson }},
+          backgroundColor: '#00ffff88',
+          borderColor: '#00ffff',
+          borderWidth: 2
+        },
+        {
+          label: '{{ _("Emails Breached (millions)") }}',
+          data: {{ emails|tojson }},
+          backgroundColor: '#ff00ff88',
+          borderColor: '#ff00ff',
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color:'#00ffff', font: { family:'Audiowide', size:14 } } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      interaction: { mode: 'nearest', axis: 'x', intersect: false },
+      scales: {
+        x: { ticks: { color:'#00ffff' }, grid: { color:'#003333' } },
+        y: { ticks: { color:'#00ffff' }, grid: { color:'#003333' }, beginAtZero:true }
+      }
+    }
+  });
+
+  // Chart 2: Most Common Breaches
+  const ctxPie = document.getElementById('pieChart').getContext('2d');
+  new Chart(ctxPie, {
+    type:'doughnut',
+    data:{
+      labels: {{ breach_types.keys()|list|tojson }},
+      datasets:[{
+        data: {{ breach_types.values()|list|tojson }},
+        backgroundColor: ['#00ffff88','#ff00ff88','#00ff0088','#ffff0088','#ff660088'],
+        borderColor: ['#00ffff','#ff00ff','#00ff00','#ffff00','#ff6600'],
+        borderWidth: 2
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{
+          position: 'right',
+          labels: { color:'#00ffff', font:{ family:'Audiowide', size:14 } }
+        }
+      }
+    }
+  });
+</script>
+
+<style>
+/* =============================== */
+/* Z-index y apariencia de secciones */
+/* =============================== */
+.content-wrapper {
+  margin-top: 100px;
+  padding: 0 20px;
+}
+
+.section {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #00ffff;
+  border-radius: 15px;
+  padding: 50px 40px;
+  margin-bottom: 60px;
+  position: relative; 
+  z-index: 101;
+  box-shadow: 0 0 25px #00ffff33;
+}
+
+.section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.section p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #99ffff;
+  margin-bottom: 35px;
+}
+</style>
+{% endblock %}

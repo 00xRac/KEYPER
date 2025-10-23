@@ -1,0 +1,165 @@
+    /* ------------------------------- */
+    /* Reset y estilos globales */
+    /* ------------------------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background: black;
+      font-family: 'Audiowide', sans-serif;
+      color: #00ffff;
+    }
+
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* ------------------------------- */
+    /* Navbar */
+    /* ------------------------------- */
+    .navbar {
+      background-color: #000848 !important;
+      border-bottom: 2px solid #00ffff;
+      height: 65px;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      color: #00ffff !important;
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      color: #00ffff !important;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .navbar .nav-link:hover {
+      color: cyan;
+      text-shadow: 0 0 8px #00ffff;
+    }
+
+    /* ------------------------------- */
+    /* Menú hamburguesa móvil */
+    /* ------------------------------- */
+    .menu-toggle {
+      font-size: 28px;
+      color: #00ffff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+    }
+
+    .dropdown-menu-custom {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 65px;
+      right: 10px;
+      background-color: #000848;
+      border: 2px solid #00ffff;
+      border-radius: 10px;
+      z-index: 1000;
+      padding: 10px;
+      width: 180px;
+    }
+
+    .dropdown-item-custom {
+      color: #00ffff;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 10px;
+      display: block;
+      text-align: left;
+      border-radius: 8px;
+      background: none;
+      border: none;
+    }
+
+    .dropdown-item-custom:hover {
+      background-color: rgba(0, 255, 255, 0.2);
+    }
+
+    .dropdown-menu-custom.show {
+      display: flex;
+      animation: fadeDown 0.3s ease;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+
+    #title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12vw;
+      font-weight: bold;
+      text-align: center;
+      color: #00ffff;
+      -webkit-text-stroke: 1px #00ffff;
+      pointer-events: none;
+    }
+
+    /* ------------------------------- */
+    /* Contenido principal */
+    /* ------------------------------- */
+    .container {
+      position: relative;
+      z-index: 11;
+      padding-top: 2rem; /* contenido empieza debajo del navbar */
+      color: #00ffff;
+    }
+
+    /* ------------------------------- */
+    /* Responsive */
+    /* ------------------------------- */
+    @media (max-width: 992px) {
+      .menu-toggle { display: block; }
+      #desktop-menu { display: none !important; }
+    }
+
+    @media (max-width: 768px) {
+      #title { font-size: 15vw; }
+      .navbar { height: 55px; }
+      .navbar-brand { font-size: 18px; }
+    }
+
+    /* ================================ */
+/* Tarjetas del Dashboard (hover-card) */
+/* ================================ */
+.container .hover-card {
+    background-color: rgba(0, 20, 60, 0.9); /* Azul oscuro semitransparente */
+    border: 2px solid #00ffff;            /* Borde cyan */
+    border-radius: 12px;
+    color: #00ffff;                        /* Texto cyan */
+    font-family: 'Share Tech Mono', monospace;
+    box-shadow: 0 0 10px #000848, 0 0 15px #00ffff;
+    transition: all 0.3s ease;
+}
+
+.container .hover-card:hover {
+    transform: translateY(-5px);
+    border-color: cyan;
+    box-shadow: 0 0 20px #00ffff, 0 0 30px cyan;
+    background-color: rgba(0, 40, 100, 0.9);
+}
+
+.container .hover-card .card-title {
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px cyan;
+}
+

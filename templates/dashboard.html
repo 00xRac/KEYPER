@@ -1,22 +1,31 @@
 {% extends "base.html" %}
 {% block title %}{{ _('Dashboard') }}{% endblock %}
+
 {% block content %}
 
-<h1 class="text-center mb-5">{{ _('Welcome to KEYPER') }}</h1>
+<div class="container text-center mt-5">
+  <h1 class="mb-5">{{ _('Welcome to KEYPER') }}</h1>
 
-<div class="row g-4 justify-content-center">
+  <div class="row g-4 justify-content-center">
     {% for box in boxes %}
-        <div class="col-12 col-md-4">
-            <a href="{{ box.link }}" class="text-decoration-none">
-                <div class="card shadow-sm text-center h-100 hover-card">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                        <img src="{{ box.icon }}" alt="{{ box.title }}" class="mb-3" width="80" height="80">
-                        <h5 class="card-title">{{ box.title }}</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
+      <div class="col-12 col-md-4">
+        <a href="{{ box.link }}" class="text-decoration-none">
+          <div class="card shadow-sm text-center h-100 hover-card">
+            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+              <img 
+                src="{{ box.icon }}" 
+                alt="{{ box.title }}" 
+                class="mb-3" 
+                width="80" 
+                height="80"
+              >
+              <h5 class="card-title">{{ box.title }}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
     {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

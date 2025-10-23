@@ -1,196 +1,179 @@
 <!DOCTYPE html>
 <html lang="{{ locale }}">
 <head>
-<meta charset="UTF-8">
-<title>{% block title %}{{ _('KEYPER') }}{% endblock %}</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body { margin:0; font-family:"Courier New", monospace; background:#0d1317; color:#89d2dc; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ _('KEYPER') }}{% endblock %}</title>
 
-/* Splash */
-#splash { position:fixed; top:0; left:0; width:100%; height:100%; background:#0d1317; z-index:9999; overflow:hidden; }
-#matrix-canvas { position:absolute; top:0; left:0; width:100%; height:100%; }
-#splash-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#232ed1; font-size:5rem; font-weight:bold; text-shadow:0 0 10px #232ed1,0 0 20px #6564db; transition:all 1s ease-in-out;}
-#splash-text.move-to-navbar { top:15px; left:20px; transform:none; font-size:1.5rem; }
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
-/* Dashboard container */
-.dashboard-container { display:none; padding-top:80px; }
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 
-/* Navbar */
-.navbar { background: linear-gradient(90deg,#232ed1,#6564db); border-bottom:2px solid #89d2dc; box-shadow:0 0 20px #6564db; }
-.navbar-brand { color:#89d2dc !important; font-weight:bold; text-shadow:0 0 10px #6564db; }
-.nav-link { color:#89d2dc !important; font-family:"Courier New"; text-shadow:0 0 5px #6564db; }
-.nav-link:hover { color:#232ed1 !important; text-shadow:0 0 20px #232ed1; }
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-/* Boxes/cards */
-.hover-card {
-    background: #101d42;
-    border: 2px solid #232ed1;
-    color: #89d2dc;
-    font-family: "Courier New";
-    transition: all 0.3s ease;
-}
-.hover-card:hover {
-    transform: translateY(-5px);
-    border-color: #6564db;
-    box-shadow: 0 0 15px #232ed1, 0 0 25px #6564db;
-}
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-/* Forms/buttons */
-input.form-control {
-    background: #101d42;
-    border: 2px solid #232ed1;
-    color: #89d2dc;
-}
-input.form-control:focus {
-    border-color: #6564db;
-    box-shadow: 0 0 10px #232ed1;
-}
-button.btn-primary {
-    background: linear-gradient(#232ed1, #6564db);
-    border: 2px solid #232ed1;
-    color: #89d2dc;
-    font-family: "Courier New";
-    text-shadow: 0 0 5px #6564db;
-}
-button.btn-primary:hover {
-    border-color: #6564db;
-    color: #6564db;
-    text-shadow: 0 0 10px #6564db;
-    background: linear-gradient(#6564db, #232ed1);
-}
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-/* Breach boxes/cards */
-.breach-card {
-    background: #232ed1;
-    border: 2px solid #6564db;
-    color: #89d2dc;
-    font-family: "Courier New", monospace;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 8px #101d42, 0 0 15px #6564db;
-    padding: 10px;
-    text-align: center;
-    font-size: 0.85rem;
-    border-radius: 8px;
-}
-.breach-card:hover {
-    transform: translateY(-3px);
-    border-color: #89d2dc;
-    box-shadow: 0 0 12px #232ed1, 0 0 20px #6564db;
-}
-.breach-card img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    border: 1px solid #89d2dc;
-}
-.breach-card .card-title {
-    color: #89d2dc;
-    text-shadow: 0 0 5px #6564db;
-    font-size: 0.8rem;
-    word-wrap: break-word;
-}
-
-</style>
+  
 </head>
+
 <body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">{{ _('KEYPER') }}</a>
 
-<!-- Splash -->
-<div id="splash">
-    <canvas id="matrix-canvas"></canvas>
-    <div id="splash-text">{{ _('KEYPER') }}</div>
-</div>
+      <!-- Botón menú móvil -->
+      <button id="menu-toggle" class="menu-toggle">☰</button>
 
-<!-- Dashboard container -->
-<div class="dashboard-container">
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">{{ _('KEYPER') }}</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">{{ _('Dashboard') }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/checker">{{ _('Email Checker') }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/generator">{{ _('Password Generator') }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/strength">{{ _('Strength Check') }}</a></li>
+      <!-- Menú escritorio -->
+      <div id="desktop-menu" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link text-center" href="/" title="{{ _('Dashboard') }}"><i class="bi bi-grid-fill fs-4"></i></a></li>
+          <li class="nav-item"><a class="nav-link text-center" href="/checker" title="{{ _('Email Checker') }}"><i class="bi bi-envelope-fill fs-4"></i></a></li>
+          <li class="nav-item"><a class="nav-link text-center" href="/generator" title="{{ _('Password Generator') }}"><i class="bi bi-key-fill fs-4"></i></a></li>
+          <li class="nav-item"><a class="nav-link text-center" href="/strength" title="{{ _('Strength Check') }}"><i class="bi bi-shield-lock-fill fs-4"></i></a></li>
+          <li class="nav-item"><a class="nav-link text-center" href="/statistics" title="{{ _('Statistics') }}"><i class="bi bi-bar-chart-fill fs-4"></i></a></li>
+          <li class="nav-item"><a class="nav-link text-center" href="/about" title="{{ _('About') }}"><i class="bi bi-info-circle-fill fs-4"></i></a></li>
 
-                    <!-- Language dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            🌐
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="{{ url_for('change_language', lang='en') }}">
-                                    <img src="https://flagcdn.com/16x12/gb.png" alt="English" class="me-1"> English
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ url_for('change_language', lang='no') }}">
-                                    <img src="https://flagcdn.com/16x12/no.png" alt="Norsk" class="me-1"> Norsk
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+          <!-- Language dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" title="{{ _('Language') }}">🌐</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="{{ url_for('change_language', lang='en') }}">
+                  <img src="https://flagcdn.com/16x12/gb.png" alt="English" class="me-1"> English
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{{ url_for('change_language', lang='no') }}">
+                  <img src="https://flagcdn.com/16x12/no.png" alt="Norsk" class="me-1"> Norsk
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
 
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container mt-5">
-        {% block content %}{% endblock %}
+      <!-- Menú hamburguesa móvil -->
+      <div id="dropdown-menu" class="dropdown-menu-custom">
+        <a href="/" class="dropdown-item-custom">{{ _('Dashboard') }}</a>
+        <a href="/checker" class="dropdown-item-custom">{{ _('Email Checker') }}</a>
+        <a href="/generator" class="dropdown-item-custom">{{ _('Password Generator') }}</a>
+        <a href="/strength" class="dropdown-item-custom">{{ _('Strength Check') }}</a>
+        <a href="/statistics" class="dropdown-item-custom">{{ _('Statistics') }}</a>
+        <a href="/about" class="dropdown-item-custom">{{ _('About') }}</a>
+      </div>
     </div>
-</div>
+  </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-const splash = document.getElementById('splash');
-const splashText = document.getElementById('splash-text');
-const dashboard = document.querySelector('.dashboard-container');
-const canvas = document.getElementById("matrix-canvas");
-const ctx = canvas.getContext("2d");
+  <!-- Título animado con hitbox -->
+  <div id="title-container">
+    <div id="title"><span></span></div>
+  </div>
 
-function runSplash() {
+  <!-- Fondo Matrix -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Contenido de página -->
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* =============================== */
+    /* Menú hamburguesa móvil */
+    /* =============================== */
+    const menuToggle = document.getElementById('menu-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    menuToggle.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('show');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove('show');
+      }
+    });
+
+    /* =============================== */
+    /* Fondo Matrix */
+    /* =============================== */
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
-    const fontSize = 16;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array(columns).fill(1);
+    let columns = Math.floor(width / 20);
+    let drops = Array(columns).fill(1);
 
-    function drawMatrix() {
-        ctx.fillStyle = "rgba(0,0,0,0.05)";
-        ctx.fillRect(0,0,width,height);
-        ctx.fillStyle = "#0a7f8c";
-        ctx.font = fontSize + "px monospace";
-        for(let i=0;i<drops.length;i++){
-            const text = letters.charAt(Math.floor(Math.random()*letters.length));
-            ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-            if(drops[i]*fontSize>height && Math.random()>0.975) drops[i]=0;
-            drops[i]++;
-        }
+    function drawMatrixRain() {
+    const emojis = ['🏵️','🥀','🌺','🌹','🌸','🌷','💐','💮','🌻','🌼','🍀'];
+
+    ctx.fillStyle = 'rgba(0,0,0,0.1)';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = '#00ffff';
+    ctx.font = '18px "Share Tech Mono", monospace';
+    
+    for (let i = 0; i < drops.length; i++) {
+        // Elegir un emoji aleatorio de la lista
+        const text = emojis[Math.floor(Math.random() * emojis.length)];
+        ctx.fillText(text, i * 20, drops[i] * 20);
+
+        // Reiniciar la gota si llega al final
+        if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
     }
-
-    const matrixInterval = setInterval(drawMatrix,50);
-    setTimeout(()=>{ splashText.classList.add('move-to-navbar'); },50);
-    setTimeout(()=>{
-        splash.style.display='none';
-        dashboard.style.display='block';
-        clearInterval(matrixInterval);
-        localStorage.setItem('splashShown','true');
-    },4500);
 }
 
-if(localStorage.getItem('splashShown') === 'true'){
-    splash.style.display='none';
-    dashboard.style.display='block';
-} else {
-    runSplash();
-}
-</script>
+
+    function animate() {
+      drawMatrixRain();
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      columns = Math.floor(width / 20);
+      drops = Array(columns).fill(1);
+    });
+
+    /* =============================== */
+    /* Título animado */
+    /* =============================== */
+    const targetText = 'KEYPER';
+    const titleSpan = document.querySelector('#title span');
+    let iteration = 0;
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    titleSpan.style.color = '#00ffff';
+    titleSpan.style.filter = 'blur(2px)';
+
+    const interval = setInterval(() => {
+      titleSpan.textContent = targetText.split('').map((letter, i) => {
+        if (i < iteration) return targetText[i];
+        return letters[Math.floor(Math.random() * letters.length)];
+      }).join('');
+      iteration += 0.2;
+
+      if (iteration >= targetText.length) {
+        titleSpan.textContent = targetText;
+        titleSpan.style.transition = 'text-shadow 1s ease';
+        titleSpan.style.textShadow = '0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff';
+        titleSpan.style.filter = 'blur(0px)';
+        clearInterval(interval);
+      }
+    }, 50);
+  </script>
 </body>
 </html>

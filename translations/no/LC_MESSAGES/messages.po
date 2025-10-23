@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-10-21 10:22+0200\n"
+"POT-Creation-Date: 2025-10-22 12:03+0200\n"
 "PO-Revision-Date: 2025-10-21 10:22+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: no\n"
@@ -18,100 +18,134 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:39 templates/checker.html:4
+#: app.py:40 templates/checker.html:8
 msgid "Email Breach Checker"
 msgstr "E-postbrudd Sjekker"
 
-#: app.py:40 templates/base.html:80 templates/generator.html:5
+#: app.py:41 templates/base.html:203 templates/base.html:231
+#: templates/generator.html:5
 msgid "Password Generator"
 msgstr "Passordgenerator"
 
-#: app.py:41 templates/base.html:81
+#: app.py:42 templates/base.html:204 templates/base.html:232
 msgid "Strength Check"
 msgstr "Styrkesjekk"
 
-#: app.py:67
+#: app.py:77
 #, python-format
 msgid "Error %(code)s"
 msgstr "Feil %(code)s"
 
-#: app.py:97
+#: app.py:107
 msgid "Please select at least one character type."
 msgstr "Velg minst én tegnkategori."
 
-#: app.py:100
+#: app.py:110
 msgid "Password length must be between 4 and 128."
 msgstr "Passordlengden må være mellom 4 og 128."
 
-#: app.py:116
+#: app.py:126
 msgid "Password cannot be empty."
 msgstr "Passord kan ikke være tomt."
 
-#: app.py:124
+#: app.py:134
 msgid "Use at least 8 characters."
 msgstr "Bruk minst 8 tegn."
 
-#: app.py:129
+#: app.py:139
 msgid "Include at least one uppercase letter."
 msgstr "Inkluder minst én stor bokstav."
 
-#: app.py:134
+#: app.py:144
 msgid "Include at least one lowercase letter."
 msgstr "Inkluder minst én liten bokstav."
 
-#: app.py:139
+#: app.py:149
 msgid "Include at least one number."
 msgstr "Inkluder minst ett tall."
 
-#: app.py:144
+#: app.py:154
 msgid "Include at least one symbol."
 msgstr "Inkluder minst ett symboltegn."
 
-#: app.py:147
+#: app.py:157 app.py:163
 msgid "Very Weak"
 msgstr "Veldig svak"
 
-#: app.py:148
+#: app.py:158
 msgid "Weak"
 msgstr "Svak"
 
-#: app.py:149
+#: app.py:159
 msgid "Medium"
 msgstr "Middels"
 
-#: app.py:150
+#: app.py:160
 msgid "Strong"
 msgstr "Sterk"
 
-#: app.py:151
+#: app.py:161
 msgid "Very Strong"
 msgstr "Veldig sterk"
 
-#: templates/base.html:5 templates/base.html:65 templates/base.html:72
+#: templates/about.html:2 templates/base.html:206 templates/base.html:234
+msgid "About"
+msgstr "Om"
+
+#: templates/about.html:7
+#, fuzzy
+msgid "About Keyper"
+msgstr "Om Keyper"
+
+#: templates/about.html:9
+msgid ""
+"Keyper is a platform designed to help you manage and protect your "
+"passwords securely."
+msgstr "Keyper er en plattform laget for å hjelpe deg med å administrere og beskytte passordene dine på en sikker måte."
+
+#: templates/about.html:12
+msgid ""
+"Our goal is to provide simple, fast, and secure tools to keep your "
+"personal data safe at all times."
+msgstr "Målet vårt er å tilby enkle, raske og sikre verktøy for å holde dine personlige data trygge til enhver tid."
+
+#: templates/about.html:14
+msgid "Version 1.0 — © 2025 Keyper Technologies"
+msgstr "Versjon 1.0 — © 2025 Keyper Technologies"
+
+#: templates/base.html:6 templates/base.html:193
 msgid "KEYPER"
 msgstr "KEYPER"
 
-#: templates/base.html:78 templates/dashboard.html:2
+#: templates/base.html:201 templates/base.html:229 templates/dashboard.html:2
 msgid "Dashboard"
 msgstr "Oversikt"
 
-#: templates/base.html:79 templates/checker.html:2
+#: templates/base.html:202 templates/base.html:230 templates/checker.html:2
 msgid "Email Checker"
 msgstr "E-postsjekk"
 
-#: templates/checker.html:7
+#: templates/base.html:205 templates/base.html:233 templates/statistics.html:2
+msgid "Statistics"
+msgstr "Statistikk"
+
+#: templates/base.html:210
+msgid "Language"
+msgstr "Språk"
+
+#: templates/checker.html:12
 msgid "Enter your email"
 msgstr "Skriv inn e-postadressen din"
 
-#: templates/checker.html:8
+#: templates/checker.html:13
 msgid "Check"
 msgstr "Sjekk"
 
-#: templates/checker.html:14
+#: templates/checker.html:19
 msgid "No breaches found."
 msgstr "Ingen brudd funnet."
 
-#: templates/dashboard.html:5
+#: templates/dashboard.html:7
 msgid "Welcome to KEYPER"
 msgstr "Velkommen til KEYPER"
 
@@ -142,6 +176,32 @@ msgstr "Generer passord"
 #: templates/generator.html:32
 msgid "Generated Password:"
 msgstr "Generert passord:"
+
+#: templates/statistics.html:9
+msgid "Passwords & Emails Breached (2015–2025)"
+msgstr "Passord og e-poster lekket (2015–2025)"
+
+#: templates/statistics.html:10
+msgid ""
+"Estimated global number of passwords and emails compromised in the last "
+"decade."
+msgstr "Estimert globalt antall passord og e-poster som har blitt kompromittert det siste tiåret."
+
+#: templates/statistics.html:16
+msgid "Most Common Breach Types"
+msgstr "Vanligste typer datainnbrudd"
+
+#: templates/statistics.html:17
+msgid "Distribution of breaches by type or sector."
+msgstr "Fordeling av brudd etter type eller sektor."
+
+#: templates/statistics.html:33
+msgid "Passwords Breached (millions)"
+msgstr "Passord lekket (millioner)"
+
+#: templates/statistics.html:40
+msgid "Emails Breached (millions)"
+msgstr "E-poster lekket (millioner)"
 
 #: templates/strength.html:5
 msgid "Password Strength Checker"
