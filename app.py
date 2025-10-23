@@ -1,10 +1,10 @@
 import random
 import string
-from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from flask_babel import Babel, _
 import re
 import requests
 from datetime import datetime
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask_babel import Babel, _
 
 app = Flask(__name__)
 app.secret_key = "super-secret-key"  # necesario para sesiones
@@ -37,9 +37,11 @@ def change_language(lang):
 @app.route("/")
 def dashboard():
     boxes = [
-        {"title": _("Email Breach Checker"), "icon": "./static/Carta 1.png", "link": "/checker"},
-        {"title": _("Password Generator"), "icon": "./static/Llave 1.png", "link": "/generator"},
-        {"title": _("Strength Check"), "icon": "./static/Candado 1.png", "link": "/strength"}
+        {"title": _("Email Breach Checker"), "icon": url_for('static', filename='Carta 1.png'), "link": "/checker"},
+        {"title": _("Password Generator"), "icon": url_for('static', filename='Llave 1.png'), "link": "/generator"},
+        {"title": _("Strength Check"), "icon": url_for('static', filename='Candado 1.png'), "link": "/strength"},
+        {"title": _("Statistics"), "icon": url_for('static', filename='Stats.png'), "link": "/statistics"},
+        {"title": _("About"), "icon": url_for('static', filename='Info.png'), "link": "/about"}
     ]
     return render_template("dashboard.html", boxes=boxes, locale=get_locale())
 
@@ -56,7 +58,7 @@ def checker():
                     data = response.json()
                     raw_breaches = data.get("breaches", [])
                     breaches = []
-                    current_year = datetime.now().year  # or use a mapping if you want
+                    current_year = datetime.now().year
                     for item in raw_breaches:
                         if isinstance(item, list):
                             for b in item:
@@ -79,7 +81,7 @@ def checker():
                 breaches = [{"error": str(e)}]
     return render_template("checker.html", breaches=breaches, locale=get_locale())
 
-# Generator page
+# Password Generator
 @app.route("/generator")
 def generator():
     return render_template("generator.html", locale=get_locale())
@@ -112,7 +114,7 @@ def generate_password():
     password = "".join(random.choice(pool) for _ in range(length))
     return jsonify({"password": password})
 
-# Strength page
+# Password Strength Checker
 @app.route("/strength")
 def strength():
     return render_template("strength.html", locale=get_locale())
@@ -168,5 +170,35 @@ def check_strength():
         "feedback": feedback
     })
 
+# About page
+@app.route("/about")
+def about():
+    return render_template("about.html", locale=get_locale())
+
+# Statistics page
+@app.route("/statistics")
+def statistics():
+    years = list(range(2015, 2026))
+    passwords_breached = [120, 180, 350, 410, 620, 850, 900, 950, 1100, 1400, 1600]
+    emails_breached = [200, 260, 500, 700, 950, 1200, 1500, 1600, 1800, 2100, 2300]
+
+    breach_types = {
+        "Social Media": 35,
+        "Banking": 20,
+        "Emails": 25,
+        "Online Platforms": 15,
+        "Other": 5
+    }
+
+    return render_template(
+        "statistics.html",
+        years=years,
+        passwords=passwords_breached,
+        emails=emails_breached,
+        breach_types=breach_types,
+        locale=get_locale()
+    )
+
+# Main entrypoint para Render
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=8000)
+    app.run(host="0.0.0.0", port=8080)
