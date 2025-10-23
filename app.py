@@ -40,8 +40,6 @@ def dashboard():
         {"title": _("Email Breach Checker"), "icon": url_for('static', filename='Carta 1.png'), "link": "/checker"},
         {"title": _("Password Generator"), "icon": url_for('static', filename='Llave 1.png'), "link": "/generator"},
         {"title": _("Strength Check"), "icon": url_for('static', filename='Candado 1.png'), "link": "/strength"},
-        {"title": _("Statistics"), "icon": url_for('static', filename='Stats.png'), "link": "/statistics"},
-        {"title": _("About"), "icon": url_for('static', filename='Info.png'), "link": "/about"}
     ]
     return render_template("dashboard.html", boxes=boxes, locale=get_locale())
 
@@ -202,3 +200,4 @@ def statistics():
 # Main entrypoint para Render
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
+
