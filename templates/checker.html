@@ -27,7 +27,7 @@
           {% else %}
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
               <div class="card breach-card text-center p-2">
-                <img src="{{ breach.logo }}" class="mb-2 mx-auto d-block"
+                <img src="{{ breach.logo }}" class="mb-2 mx-auto d-block style="max-width: 50px; max-height: 50px;"
                      onerror="this.src='https://cdn-icons-png.flaticon.com/512/739/739249.png';">
                 <h6 class="card-title mb-0">{{ breach.name }}</h6>
               </div>
@@ -41,3 +41,4 @@
 </div>
 
 {% endblock %}
+
